@@ -275,6 +275,3 @@ bool duplimatrix (vector<student> &students , string &mtrix){ // function to che
     }
      return false;
 }
-
-    
-    
