@@ -117,7 +117,12 @@ void dispStudent (const student &x) {
     cout << "Matrix Number: "<< x.matrixNum << endl;
     cout << "GPA: "<<setprecision(2) << fixed << x.gpa << endl;
 }
-
+void editStudentFile (vector<student> &students){
+    cout << "Search the student by matrix number to edit the file." << endl;
+    searchStudent (vector<student> &students);
+    cout << ""
+     
+}
             
         
     
