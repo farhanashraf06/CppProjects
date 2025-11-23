@@ -16,6 +16,8 @@ int searchStudent (vector<student> &students);
 void dispStudent (const student &x);
 void editStudentFile (vector<student> &students);
 void deleteFile (vector <student> &students);
+void svtof (vector<student> &students);
+void lff (vector<student> &students);
 int main (){
     int choice, index;
     vector<student> students;
@@ -23,12 +25,13 @@ int main (){
     cout << "----- Welcome to UTM Student File Handling System ----- " << endl;
     cout << "Actions : " << endl;
     cout << "1. Add student " << endl << "2. Display all student " << endl << "3. Search Student by matrix number " << endl;
-    cout << "4. Edit student file " << endl << "5. Delete student file  " << endl << "6. Save to file " << endl << "7. Load from file " << endl << "8. Exit" << endl ;
+    cout << "4. Edit student file " << endl << "5. Delete student file  " << endl << "6. Save to file " << endl << "7. Load from file " << endl << "8. Student count" << endl;
+    cout << "9. Exit program " <<endl;
     cout << "Choose an action : #" ;
 
     while(true){
         cin >> choice;
-        if ((cin.fail()) || (choice < 1 ) || (choice > 7) ){
+        if ((cin.fail()) || (choice < 1 ) || (choice > 8) ){
         cout << "Invalid Input ! Enter again. " << endl;
         cin.clear();
         cin.ignore (1000 , '\n');
@@ -59,21 +62,22 @@ int main (){
         case 5: deleteFile (students);
         break;
 
-        case 6:
+        case 6: svtof (students);
         break;
 
-        case 7:
+        case 7: lff (students);
         break;
 
-        case 8:
+        case 8: cout << "Thank you !" << endl;
+                return 0;
         break;
 
-        default:
+        default: cout << "Invalid choice ! Enter again : " ;
         break;
     }
     cout << endl;
     }while(choice != 8);
-return 0;
+
 }
 template <typename F>
 void inputValid (F &x, const string prompt){
@@ -96,8 +100,20 @@ void addStudent (vector<student> &students){
     cin.ignore (1000 , '\n');
     getline (cin , newStudent.name);
     inputValid(newStudent.age , "Age : ");
-    inputValid(newStudent.matrixNum , "Matrix Number : ");
-    inputValid(newStudent.gpa , "GPA : ");
+    do {
+        inputValid(newStudent.matrixNum , "Matrix Number : ");
+        if (duplimatrix (students , newstudents.matrixNum)){
+            cout << "Matrix number already existed ! Enter again : " << endl;
+        }
+    }while (duplimatrix (students , newStudent.matrixNum));
+    
+    while (true){
+        inputValid(newStudent.gpa , "GPA : ");
+        if ((newStudent.gpa < 0.00) || (newStudent.gpa > 4.00)){
+            cout << "Invalid GPA ! only 0.00 - 4.00 . Enter again : ";
+    }break;
+    }
+    
     students.push_back(newStudent);
 }
 void dispAll (vector<student> &students){
@@ -131,6 +147,7 @@ void dispStudent (const student &x) {
 }
 void editStudentFile (vector<student> &students){
     int c;
+    char choice;
     cout << "Search the student by matrix number to edit the file." << endl;
     int index = searchStudent(students);
                 if (index >=0){
@@ -139,9 +156,10 @@ void editStudentFile (vector<student> &students){
                 }
                 else{
                     cout << "Student does not exist ! " << endl;
+                    return;
                 }
     cout << "What would you like to edit? : " << endl;
-    inputValid ( c , "1. Name , 2. Age , 3. Matrix Number , 4. GPA , 5. Edit all ");
+    inputValid ( c , "1. Name , 2. Age , 3. Matrix Number , 4. GPA , 5. Edit all : ");
     switch (c){
         case 1:
             cout << "Enter new name : " << endl;
@@ -166,8 +184,20 @@ void editStudentFile (vector<student> &students){
             inputValid(students[index].gpa , "Enter new GPA : ");
             break;
         default :
-            cout << "Invalid Input ! only number 1-5. " << endl; }     
-            cout << "Student file successfully edited ! " << endl;
+            cout << "Invalid Input ! only number 1-5. " << endl; 
+        }
+        inputValid(choice , "Are you sure to edit this file? (y/n) : ");
+        if (isupper (choice)){
+        choice = tolower(choice);
+        }
+        if(choice == 'y' ){
+        cout << "Student file successfully edited ! " << endl;
+        }
+        else {
+        cout << "Edit cancelled ." << endl;
+        return;
+        }     
+            
 }
 void deleteFile (vector <student> &students){
     int c;
@@ -180,13 +210,14 @@ void deleteFile (vector <student> &students){
                 }
                 else{
                     cout << "Student does not exist ! " << endl;
+                    return;
                 }
-    inputValid(choice , "Are you sure to delete this file? (y/n) : ")
+    inputValid(choice , "Are you sure to delete this file? (y/n) : ");
     if (isupper (choice)){
         choice = tolower(choice);
     }
-    if(choice == y ){
-        students.erase(students.begin() + index)
+    if(choice == 'y' ){
+        students.erase(students.begin() + index);
         cout << "File deleted successfully ! " << endl;
     }
     else {
@@ -195,9 +226,42 @@ void deleteFile (vector <student> &students){
 
 }
 void svtof (vector<student> &students){
-    fstream.outfile ("student.txt");
-    
-}   
-        
+    fstream outfile ("student.txt");
+    cout << endl;
+    for ( int i=0 ; i < students.size() ; i++){
+        outfile << "  " << "Name: "<< students[i].name << endl; 
+        outfile << "  " << "Age: "<< students[i].age << endl;
+        outfile << "  " << "Matrix Number: "<< students[i].matrixNum << endl;
+        outfile << "  " << "GPA: "<<setprecision(2) << fixed << students[i].gpa << endl;}
+        outfile.close();   
+        cout << "File saved successfully . " << endl;
+}     
+void lff (vector<student> &students){
+    fstream infile ("student.txt");
+    if (!infile){
+        cout << "File does not exist ! " <<endl;
+        return;
+    }
+    students.clear(); // to avoid duplicates
+
+    student temp;
+    while (getline (infile , temp.name)){
+        infile >> temp.age;
+        infile >> temp.matrixNum;
+        infile >> temp.gpa;
+        infile.ignore (10000 , '\n');
+
+        students.push_back(temp);
+    }
+    infile.close();
+    cout << "Student loaded successfully !" << endl;  
+}
+bool duplimatrix (vector<student> &students , string &mtrix){
+    for (auto &s : students ){
+        if (s.matrixNum == mtrix){return true;}
+        else {return false;}
+    }
+}
+
     
     

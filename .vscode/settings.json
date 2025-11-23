@@ -6,7 +6,8 @@
     "typeinfo": "cpp",
     "string": "cpp",
     "istream": "cpp",
-    "ostream": "cpp"
+    "ostream": "cpp",
+    "fstream": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }
