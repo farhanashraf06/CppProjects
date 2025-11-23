@@ -3,7 +3,9 @@
     "iostream": "cpp",
     "iomanip": "cpp",
     "text_encoding": "cpp",
-    "typeinfo": "cpp"
+    "typeinfo": "cpp",
+    "string": "cpp",
+    "istream": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }

@@ -14,6 +14,7 @@ void addStudent (vector<student> &students);
 void dispAll (vector<student> &students);
 int searchStudent (vector<student> &students);
 void dispStudent (const student &x);
+void editStudentFile (vector<student> &students);
 int main (){
     int choice, index;
     vector<student> students;
@@ -21,7 +22,7 @@ int main (){
     cout << "----- Welcome to UTM Student File Handling System ----- " << endl;
     cout << "Actions : " << endl;
     cout << "1. Add student " << endl << "2. Display all student " << endl << "3. Search Student by matrix number " << endl;
-    cout << "4. Edit student file " << endl << "3. Delete student file  " << endl << "5. Save to file " << endl << "6. Load from file " << endl << "7. Exit" << endl ;
+    cout << "4. Edit student file " << endl << "5. Delete student file  " << endl << "6. Save to file " << endl << "7. Load from file " << endl << "8. Exit" << endl ;
     cout << "Choose an action : #" ;
 
     while(true){
@@ -51,7 +52,7 @@ int main (){
 
         break;
         
-        case 4:
+        case 4: editStudentFile (students);
         break;
         
         case 5:
@@ -62,9 +63,15 @@ int main (){
 
         case 7:
         break;
-    }
 
-    }while(choice != 7);
+        case 8:
+        break;
+
+        default:
+        break;
+    }
+    cout << endl;
+    }while(choice != 8);
 return 0;
 }
 template <typename F>
@@ -82,9 +89,10 @@ void inputValid (F &x, const string prompt){
         }
     }
 void addStudent (vector<student> &students){
+    cout << endl;
     student newStudent;
     cout << "Name :";
-    cin >> ws;
+    cin.ignore (1000 , '\n');
     getline (cin , newStudent.name);
     inputValid(newStudent.age , "Age : ");
     inputValid(newStudent.matrixNum , "Matrix Number : ");
@@ -92,6 +100,7 @@ void addStudent (vector<student> &students){
     students.push_back(newStudent);
 }
 void dispAll (vector<student> &students){
+    cout << endl;
     for ( int i=0 ; i < students.size() ; i++){
         cout << "Student #" << i+1 << ": " << endl;
         cout << "  " << "Name: "<< students[i].name << endl; 
@@ -101,6 +110,7 @@ void dispAll (vector<student> &students){
     }
 }
 int searchStudent (vector<student> &students){
+    cout << endl;
     string search;
     cout << "Enter the Matrix Number : " ;
     cin >> search;
@@ -112,15 +122,53 @@ int searchStudent (vector<student> &students){
     return -1;
 }
 void dispStudent (const student &x) {
+    cout << endl;
     cout << "Name: "<< x.name << endl; 
     cout << "Age: "<< x.age << endl;
     cout << "Matrix Number: "<< x.matrixNum << endl;
     cout << "GPA: "<<setprecision(2) << fixed << x.gpa << endl;
 }
 void editStudentFile (vector<student> &students){
+    int c;
     cout << "Search the student by matrix number to edit the file." << endl;
-    searchStudent (vector<student> &students);
-    cout << ""
+    int index = searchStudent(students);
+                if (index >=0){
+                    cout << "Student Found !" << endl;
+                    dispStudent(students[index]);
+                }
+                else{
+                    cout << "Student does not exist ! " << endl;
+                }
+    cout << "What would you like to edit? : " << endl;
+    inputValid ( c , "1. Name , 2. Age , 3. Matrix Number , 4. GPA , 5. Edit all ");
+    switch (c){
+        case 1:
+            cout << "Enter new name : " << endl;
+            cin.ignore (1000 , '\n');
+            getline (cin , students[index].name);
+            break;
+        case 2:
+            inputValid(students[index].age , "Enter new age : ");
+            break;
+         case 3:
+            inputValid(students[index].matrixNum , "Enter new matrix number : ");
+            break;
+        case 4:
+            inputValid(students[index].gpa , "Enter new GPA : ");
+            break;
+        case 5:
+            cin.ignore (1000 , '\n');
+            cout << "Enter new name : " << endl;
+            getline (cin , students[index].name);
+            inputValid(students[index].age , "Enter new age : ");
+            inputValid(students[index].matrixNum , "Enter new matrix number : ");
+            inputValid(students[index].gpa , "Enter new GPA : ");
+            break;
+        default :
+            cout << "Invalid Input ! only number 1-5. " << endl;
+
+    }
+
      
 }
             
