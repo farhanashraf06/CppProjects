@@ -15,6 +15,7 @@ void dispAll (vector<student> &students);
 int searchStudent (vector<student> &students);
 void dispStudent (const student &x);
 void editStudentFile (vector<student> &students);
+void deleteFile (vector <student> &students);
 int main (){
     int choice, index;
     vector<student> students;
@@ -55,7 +56,7 @@ int main (){
         case 4: editStudentFile (students);
         break;
         
-        case 5:
+        case 5: deleteFile (students);
         break;
 
         case 6:
@@ -165,13 +166,38 @@ void editStudentFile (vector<student> &students){
             inputValid(students[index].gpa , "Enter new GPA : ");
             break;
         default :
-            cout << "Invalid Input ! only number 1-5. " << endl;
-
+            cout << "Invalid Input ! only number 1-5. " << endl; }     
+            cout << "Student file successfully edited ! " << endl;
+}
+void deleteFile (vector <student> &students){
+    int c;
+    char choice;
+    cout << "Search the student by matrix number to delete the file." << endl;
+    int index = searchStudent(students);
+                if (index >=0){
+                    cout << "Student Found !" << endl;
+                    dispStudent(students[index]);
+                }
+                else{
+                    cout << "Student does not exist ! " << endl;
+                }
+    inputValid(choice , "Are you sure to delete this file? (y/n) : ")
+    if (isupper (choice)){
+        choice = tolower(choice);
+    }
+    if(choice == y ){
+        students.erase(students.begin() + index)
+        cout << "File deleted successfully ! " << endl;
+    }
+    else {
+        cout << "Deletation cancelled ." << endl;
     }
 
-     
 }
-            
+void svtof (vector<student> &students){
+    fstream.outfile ("student.txt");
+    
+}   
         
     
     
