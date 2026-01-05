@@ -167,7 +167,7 @@ void editStudentFile (vector<student> &students){ // function to let user edit a
                 }
                 else{
                     cout << "Student does not exist ! " << endl;
-                    return;
+                    return; 
                 }
     cout << "What would you like to edit? : " << endl;
     inputValid ( c , "1. Name , 2. Age , 3. Matrix Number , 4. GPA , 5. Edit all : ");

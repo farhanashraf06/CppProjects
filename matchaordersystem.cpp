@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <iomanip>
+#include <string>
 using namespace std;
 struct order{
     int drinkChoice;
@@ -22,6 +23,7 @@ const vector<double> price {
 void displayMenu ();
 template <typename T>
 void inputValidation(T &x , string y);
+void chooseDrink(vector<order> &urOrder);
 
 
 int main (){
@@ -32,8 +34,9 @@ int main (){
     cout << " -------------------------------------------------------- " << endl;
     cout << " Our Menu : " << endl;
     displayMenu ();
-    inputValidation (choices , " How many different drink would you like to order ? : ");
+    inputValidation (choices , " How many different drink would you like to order ? max 3 : ");
     urOrder.resize (choices);
+    chooseDrink(urOrder);
     
 
     return 0;
@@ -46,8 +49,10 @@ void displayMenu (){
 void chooseDrink(vector<order> &urOrder){
     for (int i =0; i < urOrder.size(); i++ ) {
         cout << "\nOrder #" << i+1 << " : " ;
+        do {
         inputValidation (urOrder[i].drinkChoice , "Choose your drink choice (1-3) : ");
-        inputValidation (urOrder[i].drinkAmount, "How many of this drink wouldd you like :");
+        } while (urOrder[i].drinkChoice < 1 || urOrder[i].drinkChoice > 3);
+        inputValidation (urOrder[i].drinkAmount, "How many of this drink would you like : ");
 
 }
 }
@@ -55,11 +60,12 @@ template <typename T>
 void inputValidation(T &x , string y){
     cout << y;
     while (true){
-        cin >> x;
-        if (cin.fail()){
-        cin.clear();
-        cin.ignore(1000 , '\n');
-        cout << "Invalid input ! Try again : ";
-        continue;  }
-     }
-     return;   }
+            cin >> x;
+            if (cin.fail()){
+            cin.clear();
+            cin.ignore(1000 , '\n');
+            cout << "Invalid input ! Try again : ";
+            continue;  
+        }
+     break;}
+ }
