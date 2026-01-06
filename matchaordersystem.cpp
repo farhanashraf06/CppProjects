@@ -1,16 +1,17 @@
 #include <iostream>
 #include <vector>
-#include <iomanip>
+#include <cctype>
 #include <string>
+#include <fstream>
+
 using namespace std;
 struct order{
-
     char intensity;
     char milkChoice;
     bool syrup;
     char whisk;
     string Address;
-    double totalPice=0;
+    double totalPrice=0;
 };
 
 const int SIZE = 3;
@@ -20,14 +21,18 @@ const vector<string> drinks {
 const vector<double> price {
     8.00 , 9.50 , 9.5
 };
+
 void displayMenu ();
 template <typename T>
 void inputValidation(T &x , string y);
-void chooseDrink(vector<order> &x);
-void intensity (vector<order> &x);
-void syrup (vector<order> &x);
-void milk (vector<order> &x);
-void whisk (vector<order> &x);
+void chooseDrink(vector <order> &x);
+void intensity (order &x);
+void syrup (order &x);
+void milk (order &x);
+void whisk (order &x);
+void dispOrderSummary (vector <order> &x);
+void calcGrandTotal (vector <order> &x);
+
 
 int main (){
     vector<order> urOrder;
@@ -49,7 +54,6 @@ void displayMenu (){
 
 void chooseDrink(vector<order> &urOrder){
     int drinkTypes;
-    double price;
     inputValidation(drinkTypes, "How many different drinks would you like to order (max 3)? : ");
 
     for (int i = 0; i < drinkTypes; i++) {
@@ -61,18 +65,20 @@ void chooseDrink(vector<order> &urOrder){
         do {
             inputValidation(choice, "Choose your drink (1-3): ");
         } while (choice < 1 || choice > 3);
-        int index = choice;
+        int index = choice - 1;
 
-        cout << endl << drinks[index-1] << endl << endl; 
+        cout << endl << drinks[index] << endl << endl; 
         inputValidation( qty , "How many cups of this drink? : ");
 
         for (int j = 0; j < qty; j++) {
             order temp;
-            temp.totalPice = price[index-1]*qty;
+            temp.totalPrice = price[index] * qty;
             cout << "Customisation for cup #" << j + 1 << endl;
 
-            inputValidation(temp.milkChoice, "Milk (O (Oatmilk) / D (Dairy) ): ");
-            inputValidation(temp.whisk, "Whisk Method? (A = Hot Whisk , B = Cold Whisk): ");
+            intensity(temp);
+            milk(temp);
+            syrup(temp);
+            whisk(temp);
             inputValidation(temp.Address, "Enter your address : ");
 
 
@@ -94,22 +100,47 @@ void inputValidation(T &x , string y){
         }
      break;}
  }
-void intensity (vector<order> &x){
+void intensity (order &x){
     inputValidation (x.intensity , "Intensity (N = Normal / H = High) : ");
-    x.intesity = toupper (x.intensity);
-    if ( x.intensity == H){
+    x.intensity = toupper (x.intensity);
+    if ( x.intensity == 'H'){
         x.totalPrice += 1.00;
     }
 }
-void syrup (vector<order> &x){
+
+void syrup (order &x){
 
     inputValidation(x.syrup, "Add syrup? (1 = Yes, 0 = No): ");
     if (x.syrup == 1){
         x.totalPrice += 0.50;
     }
+}
 
+void milk (order &x){
+    inputValidation(x.milkChoice, "Milk ( O = Oatmilk / D = Dairy ): ");
+    x.milkChoice = toupper (x.milkChoice);
+    if (x.milkChoice == 'O' ){
+        x.totalPrice += 1.50;
+    }
+}
+void whisk (order &x){
+    inputValidation(x.whisk, "Whisk Method? (A = Hot Whisk , B = Cold Whisk): ");
+    x.whisk = toupper (x.whisk);
+    if ( x.whisk == 'B'){
+        x.totalPrice +=1.00;
+    }
+}
+void calcGrandTotal (vector <order> &x){
+    
+}
+void dispOrderSummary (vector <order> &x){
+    ofstream outFile;
+    outFile.open("Farhan's Matcha Receipt.txt");
 
 }
+
+
+
 
 
 
