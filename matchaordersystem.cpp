@@ -87,6 +87,7 @@ void chooseDrink(vector<order> &urOrder){
         }
     }
 }
+
 template <typename T>
 void inputValidation(T &x , string y){
     cout << y;
@@ -119,7 +120,6 @@ void intensity (order &x){
 }
 
 void syrup (order &x){
-
     inputValidation(x.syrup, "Add syrup? (1 = Yes, 0 = No): ");
     if (x.syrup == 1){
         x.totalPrice += 0.50;
@@ -143,6 +143,7 @@ void milk (order &x){
         x.totalPrice += 1.50;
     }
 }
+
 void whisk (order &x){
     while (true){
             inputValidation(x.whisk, "Whisk Method? (A = Hot Whisk , B = Cold Whisk): ");
@@ -160,6 +161,7 @@ void whisk (order &x){
         x.totalPrice +=1.00;
     }
 }
+
 double calcGrandTotal (vector <order> &x){
     double grandTotal=0;
     for ( int i=0 ; i < x.size(); i++){
@@ -167,9 +169,22 @@ double calcGrandTotal (vector <order> &x){
     }
     return grandTotal;
 }
+
 void dispOrderSummary (vector <order> &x){
     ofstream outFile;
     outFile.open("Farhan's Matcha Receipt.txt");
+    
+    cout << "=======================================" << endl;
+    cout << "       Farhan Matcha Receipt           " << endl;
+    cout << "=======================================" << endl;
+    cout << "Item Customizatiion          Price (RM)" << endl;
+    cout << "---------------------------------------" << endl;
+
+    for ( int i=0; i < x.size(); i++){
+        
+    }
+
+    cout << "---------------------------------------" << endl;
 
 }
 
