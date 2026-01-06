@@ -31,7 +31,7 @@ void syrup (order &x);
 void milk (order &x);
 void whisk (order &x);
 void dispOrderSummary (vector <order> &x);
-void calcGrandTotal (vector <order> &x);
+double calcGrandTotal (vector <order> &x);
 
 
 int main (){
@@ -101,8 +101,18 @@ void inputValidation(T &x , string y){
      break;}
  }
 void intensity (order &x){
-    inputValidation (x.intensity , "Intensity (N = Normal / H = High) : ");
-    x.intensity = toupper (x.intensity);
+    while (true){
+            inputValidation (x.intensity , "Intensity (N = Normal / H = High) : ");
+            x.intensity = toupper (x.intensity);
+            if ( (x.intensity != 'N') || (x.intensity != 'H') ){
+            cin.fail();
+            cin.clear();
+            cin.ignore(1000 , '\n');
+            cout << "Invalid choice ! Try again : ";
+            continue;  
+            }
+            break;
+        }
     if ( x.intensity == 'H'){
         x.totalPrice += 1.00;
     }
@@ -117,21 +127,45 @@ void syrup (order &x){
 }
 
 void milk (order &x){
-    inputValidation(x.milkChoice, "Milk ( O = Oatmilk / D = Dairy ): ");
-    x.milkChoice = toupper (x.milkChoice);
+    while (true){
+            inputValidation(x.milkChoice, "Milk ( O = Oatmilk / D = Dairy ): ");
+            x.milkChoice = toupper (x.milkChoice);
+            if ( (x.intensity != 'O') || (x.intensity != 'D') ){
+            cin.fail();
+            cin.clear();
+            cin.ignore(1000 , '\n');
+            cout << "Invalid choice ! Try again : ";
+            continue;  
+            }
+            break;
+        }
     if (x.milkChoice == 'O' ){
         x.totalPrice += 1.50;
     }
 }
 void whisk (order &x){
-    inputValidation(x.whisk, "Whisk Method? (A = Hot Whisk , B = Cold Whisk): ");
-    x.whisk = toupper (x.whisk);
-    if ( x.whisk == 'B'){
+    while (true){
+            inputValidation(x.whisk, "Whisk Method? (A = Hot Whisk , B = Cold Whisk): ");
+            x.whisk = toupper (x.whisk);
+            if ( (x.intensity != 'A') || (x.intensity != 'B') ){
+            cin.fail();
+            cin.clear();
+            cin.ignore(1000 , '\n');
+            cout << "Invalid choice ! Try again : ";
+            continue;  
+            }
+            break;
+        }
+        if ( x.whisk == 'B'){
         x.totalPrice +=1.00;
     }
 }
-void calcGrandTotal (vector <order> &x){
-    
+double calcGrandTotal (vector <order> &x){
+    double grandTotal=0;
+    for ( int i=0 ; i < x.size(); i++){
+        grandTotal += x[i].totalPrice;
+    }
+    return grandTotal;
 }
 void dispOrderSummary (vector <order> &x){
     ofstream outFile;
