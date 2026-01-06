@@ -13,6 +13,7 @@ struct order{
     string Address;
     char time;
 };
+
 const int SIZE = 3;
 const vector<string> drinks {
     "Matcha Latte", "Strawberry Matcha" , "Blueberry Matcha"
@@ -34,28 +35,50 @@ int main (){
     cout << " -------------------------------------------------------- " << endl;
     cout << " Our Menu : " << endl;
     displayMenu ();
-    inputValidation (choices , " How many different drink would you like to order ? max 3 : ");
-    urOrder.resize (choices);
     chooseDrink(urOrder);
-    
-
     return 0;
 }
+
 void displayMenu (){
     for (int i=0; i < SIZE ; i++){
         cout << i+1 << ". "<< drinks[i] << " - RM " << price[i] << endl;
     }
 }
-void chooseDrink(vector<order> &urOrder){
-    for (int i =0; i < urOrder.size(); i++ ) {
-        cout << "\nOrder #" << i+1 << " : " ;
-        do {
-        inputValidation (urOrder[i].drinkChoice , "Choose your drink choice (1-3) : ");
-        } while (urOrder[i].drinkChoice < 1 || urOrder[i].drinkChoice > 3);
-        inputValidation (urOrder[i].drinkAmount, "How many of this drink would you like : ");
 
+void chooseDrink(vector<order> &urOrder){
+    int drinkTypes;
+
+    inputValidation(drinkTypes, "How many different drinks would you like to order (max 3)? : ");
+
+    for (int i = 0; i < drinkTypes; i++) {
+
+        int choice, qty;
+
+        cout << "\nDrink #" << i + 1 << endl;
+
+        do {
+            inputValidation(choice, "Choose your drink (1-3): ");
+        } while (choice < 1 || choice > 3);
+
+        inputValidation(qty, "How many cups of this drink? ");
+
+        for (int j = 0; j < qty; j++) {
+            order temp;
+
+            temp.drinkChoice = choice;
+            temp.drinkAmount = 1;
+
+            cout << "Customisation for cup #" << j + 1 << endl;
+
+            inputValidation(temp.intensity, "Intensity (L/M/H): ");
+            inputValidation(temp.milkChoice, "Milk (O/D): ");
+            inputValidation(temp.syrup, "Add syrup? (1=Yes, 0=No): ");
+
+            urOrder.push_back(temp);
+        }
 }
 }
+
 template <typename T>
 void inputValidation(T &x , string y){
     cout << y;
