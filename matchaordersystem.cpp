@@ -3,13 +3,19 @@
 #include <cctype>
 #include <string>
 #include <fstream>
-
+#include <iomanip>
 using namespace std;
+
 struct order{
+    string drinkName;
     char intensity;
+    string intensityName;
     char milkChoice;
+    string milkName;
     bool syrup;
+    string syrupName;
     char whisk;
+    string whiskName;
     string Address;
     double totalPrice=0;
 };
@@ -43,6 +49,7 @@ int main (){
     cout << " Our Menu : " << endl;
     displayMenu ();
     chooseDrink(urOrder);
+    dispOrderSummary(urOrder);
     return 0;
 }
 
@@ -72,9 +79,9 @@ void chooseDrink(vector<order> &urOrder){
 
         for (int j = 0; j < qty; j++) {
             order temp;
-            temp.totalPrice = price[index] * qty;
+            temp.totalPrice = price[index];
             cout << "Customisation for cup #" << j + 1 << endl;
-
+            temp.drinkName = drinks[index];
             intensity(temp);
             milk(temp);
             syrup(temp);
@@ -105,7 +112,7 @@ void intensity (order &x){
     while (true){
             inputValidation (x.intensity , "Intensity (N = Normal / H = High) : ");
             x.intensity = toupper (x.intensity);
-            if ( (x.intensity != 'N') || (x.intensity != 'H') ){
+            if ( (x.intensity != 'N') && (x.intensity != 'H') ){
             cin.fail();
             cin.clear();
             cin.ignore(1000 , '\n');
@@ -116,6 +123,12 @@ void intensity (order &x){
         }
     if ( x.intensity == 'H'){
         x.totalPrice += 1.00;
+    }
+    if (x.intensity == 'N'){
+        x.intensityName = "Normal";
+    }
+    else {
+        x.intensityName = "High";
     }
 }
 
@@ -130,7 +143,7 @@ void milk (order &x){
     while (true){
             inputValidation(x.milkChoice, "Milk ( O = Oatmilk / D = Dairy ): ");
             x.milkChoice = toupper (x.milkChoice);
-            if ( (x.intensity != 'O') || (x.intensity != 'D') ){
+            if ( (x.milkChoice != 'O') && (x.milkChoice != 'D') ){
             cin.fail();
             cin.clear();
             cin.ignore(1000 , '\n');
@@ -142,13 +155,19 @@ void milk (order &x){
     if (x.milkChoice == 'O' ){
         x.totalPrice += 1.50;
     }
+    if (x.milkChoice == 'O'){
+        x.milkName = "Oat Milk";
+    }
+    else {
+        x.milkName = "Dairy Milk";
+    }
 }
 
 void whisk (order &x){
     while (true){
             inputValidation(x.whisk, "Whisk Method? (A = Hot Whisk , B = Cold Whisk): ");
             x.whisk = toupper (x.whisk);
-            if ( (x.intensity != 'A') || (x.intensity != 'B') ){
+            if ( (x.whisk != 'A') && (x.whisk != 'B') ){
             cin.fail();
             cin.clear();
             cin.ignore(1000 , '\n');
@@ -159,6 +178,12 @@ void whisk (order &x){
         }
         if ( x.whisk == 'B'){
         x.totalPrice +=1.00;
+    }
+    if (x.whisk == 'O'){
+        x.whiskName = "Hot Whisk";
+    }
+    else {
+        x.whiskName = "Cold Whisk";
     }
 }
 
@@ -181,7 +206,8 @@ void dispOrderSummary (vector <order> &x){
     cout << "---------------------------------------" << endl;
 
     for ( int i=0; i < x.size(); i++){
-        
+        cout << x[i].drinkName << endl;
+        cout << setw(5) << "- Intensity :" << x[i].intensity << endl;
     }
 
     cout << "---------------------------------------" << endl;
