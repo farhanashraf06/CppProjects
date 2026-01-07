@@ -4,20 +4,20 @@
 Item Customizatiion          Price (RM)
 ---------------------------------------
 Strawberry Matcha
-- Intensity : Normal
-- Milk : Oat Milk
-- Syrup : No
-- Whisk : Cold Whisk
-- Cup prices :                      12
----------------------------------------
-Strawberry Matcha
 - Intensity : High
 - Milk : Dairy Milk
 - Syrup : No
-- Whisk : Hot Whisk
-- Cup prices :                    10.5
+- Whisk : Cold Whisk
+- Cup prices :                   11.50
 ---------------------------------------
-Subtotal                            22.5
+Strawberry Matcha
+- Intensity : Normal
+- Milk : Oat Milk
+- Syrup : Yes
+- Whisk : Hot Whisk
+- Cup prices :                   11.50
+---------------------------------------
+Subtotal                          23.00
 Delivery fee                          3
-Grand Total                        25.5
+Grand Total                       26.00
 ---------------------------------------

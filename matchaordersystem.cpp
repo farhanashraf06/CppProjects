@@ -158,7 +158,18 @@ void intensity (order &x){
 }
 
 void syrup (order &x){
-    inputValidation(x.syrup, "Add syrup? (Y = Yes, N = No): ");
+    while (true){
+            inputValidation(x.syrup, "Add syrup? (Y = Yes, N = No): ");
+            x.syrup = toupper (x.syrup);
+            if ( (x.syrup != 'Y') && (x.syrup != 'N') ){
+            cin.fail();
+            cin.clear();
+            cin.ignore(1000 , '\n');
+            cout << "Invalid choice ! Try again : ";
+            continue;  
+            }
+            break;
+        }
     if (x.syrup == 'Y'){
         x.totalPrice += 0.50;
     }
@@ -228,10 +239,10 @@ double calcGrandTotal (vector <order> &x){
 
 void dispOrderSummary (vector <order> &x){
     ofstream outFile;
-    cout << fixed << setprecision(2);
     double subtotal = calcGrandTotal (x);
     outFile.open("Farhan's Matcha Receipt.txt");
-    
+    cout << fixed << setprecision(2);
+    outFile << fixed << setprecision(2);
     cout << "=======================================" << endl;
     cout << "       Farhan Matcha Receipt           " << endl;
     cout << "=======================================" << endl;
@@ -261,7 +272,7 @@ void dispOrderSummary (vector <order> &x){
         outFile << "---------------------------------------" << endl;
     }
     cout << "Subtotal" << setw(31) << subtotal << endl;
-    outFile << "Subtotal" << setw(32) << subtotal << endl;
+    outFile << "Subtotal" << setw(31) << subtotal << endl;
 
     cout << "Delivery fee" << setw(27) << "3" << endl;
     outFile << "Delivery fee" << setw(27) << "3" << endl;
