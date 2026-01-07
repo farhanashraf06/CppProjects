@@ -12,11 +12,10 @@ struct order{
     string intensityName;
     char milkChoice;
     string milkName;
-    bool syrup;
+    char syrup;
     string syrupName;
     char whisk;
     string whiskName;
-    string Address;
     double totalPrice=0;
 };
 
@@ -50,6 +49,7 @@ int main (){
     cout << " Our Menu : " << endl;
     displayMenu ();
     chooseDrink(urOrder);
+    inputValidationString(temp.Address, "Enter your address : ");
     dispOrderSummary(urOrder);
     return 0;
 }
@@ -78,8 +78,8 @@ void chooseDrink(vector<order> &urOrder){
         cout << endl << drinks[index] << endl << endl; 
         inputValidation( qty , "How many cups of this drink? : ");
         cout << endl;
-        order temp;
         for (int j = 0; j < qty; j++) {
+            order temp;
             temp.totalPrice = price[index];
             cout << "Customisation for cup #" << j + 1 << endl;
             temp.drinkName = drinks[index];
@@ -90,7 +90,6 @@ void chooseDrink(vector<order> &urOrder){
             cout << endl;
             urOrder.push_back(temp);
         }
-        inputValidationString(temp.Address, "Enter your address : ");
         cout << endl;
     }
 }
@@ -111,8 +110,7 @@ void inputValidation(T &x , string y){
  void inputValidationString(string &x , string y){
     cout << y;
     while (true){
-            cin.ignore(1000 , '\n');
-            getline ( cin , x);
+            getline ( cin >> ws , x);
             if (cin.fail()){
             cin.clear();
             cin.ignore(1000 , '\n');
@@ -147,11 +145,11 @@ void intensity (order &x){
 }
 
 void syrup (order &x){
-    inputValidation(x.syrup, "Add syrup? (1 = Yes, 0 = No): ");
-    if (x.syrup == 1){
+    inputValidation(x.syrup, "Add syrup? (Y = Yes, N = No): ");
+    if (x.syrup == 'Y'){
         x.totalPrice += 0.50;
     }
-    if (x.milkChoice == 1){
+    if (x.syrup == 'Y'){
         x.syrupName = "Yes";
     }
     else {
@@ -199,7 +197,7 @@ void whisk (order &x){
         if ( x.whisk == 'B'){
         x.totalPrice +=1.00;
     }
-    if (x.whisk == 'O'){
+    if (x.whisk == 'A'){
         x.whiskName = "Hot Whisk";
     }
     else {
@@ -250,14 +248,14 @@ void dispOrderSummary (vector <order> &x){
         outFile << "---------------------------------------" << endl;
     }
     cout << "Subtotal" << setw(31) << subtotal << endl;
+    outFile << "Subtotal" << setw(32) << subtotal << endl;
+
     cout << "Delivery fee" << setw(27) << "3" << endl;
+    outFile << "Delivery fee" << setw(27) << "3" << endl;
+
     subtotal+=3;
     cout << "Grand Total" << setw(28) << subtotal << endl;
     cout << "---------------------------------------" << endl;
-
-
-    outFile << "Subtotal" << setw(32) << subtotal << endl;
-    outFile << "Delivery fee" << setw(27) << "3" << endl;
     outFile << "Grand Total" << setw(28) << subtotal << endl;
     outFile << "---------------------------------------" << endl;
 }
