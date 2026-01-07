@@ -1,0 +1,23 @@
+=======================================
+       Farhan Matcha Receipt           
+=======================================
+Item Customizatiion          Price (RM)
+---------------------------------------
+Strawberry Matcha
+- Intensity : Normal
+- Milk : Oat Milk
+- Syrup : No
+- Whisk : Cold Whisk
+- Cup prices :                      11
+---------------------------------------
+Strawberry Matcha
+- Intensity : Normal
+- Milk : Dairy Milk
+- Syrup : No
+- Whisk : Cold Whisk
+- Cup prices :                      10
+---------------------------------------
+Subtotal                              24
+Delivery fee                          3
+Grand Total                          24
+---------------------------------------

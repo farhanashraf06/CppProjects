@@ -31,6 +31,7 @@ const vector<double> price {
 void displayMenu ();
 template <typename T>
 void inputValidation(T &x , string y);
+void inputValidationString(string &x , string y);
 void chooseDrink(vector <order> &x);
 void intensity (order &x);
 void syrup (order &x);
@@ -76,9 +77,9 @@ void chooseDrink(vector<order> &urOrder){
 
         cout << endl << drinks[index] << endl << endl; 
         inputValidation( qty , "How many cups of this drink? : ");
-
+        cout << endl;
+        order temp;
         for (int j = 0; j < qty; j++) {
-            order temp;
             temp.totalPrice = price[index];
             cout << "Customisation for cup #" << j + 1 << endl;
             temp.drinkName = drinks[index];
@@ -86,12 +87,11 @@ void chooseDrink(vector<order> &urOrder){
             milk(temp);
             syrup(temp);
             whisk(temp);
-            inputValidation(temp.Address, "Enter your address : ");
-
-
-
+            cout << endl;
             urOrder.push_back(temp);
         }
+        inputValidationString(temp.Address, "Enter your address : ");
+        cout << endl;
     }
 }
 
@@ -108,6 +108,20 @@ void inputValidation(T &x , string y){
         }
      break;}
  }
+ void inputValidationString(string &x , string y){
+    cout << y;
+    while (true){
+            cin.ignore(1000 , '\n');
+            getline ( cin , x);
+            if (cin.fail()){
+            cin.clear();
+            cin.ignore(1000 , '\n');
+            cout << "Invalid input ! Try again : ";
+            continue;  
+        }
+     break;}
+ }
+
 void intensity (order &x){
     while (true){
             inputValidation (x.intensity , "Intensity (N = Normal / H = High) : ");
@@ -203,34 +217,49 @@ double calcGrandTotal (vector <order> &x){
 
 void dispOrderSummary (vector <order> &x){
     ofstream outFile;
+    cout << fixed << setprecision(2);
     double subtotal = calcGrandTotal (x);
     outFile.open("Farhan's Matcha Receipt.txt");
     
     cout << "=======================================" << endl;
     cout << "       Farhan Matcha Receipt           " << endl;
     cout << "=======================================" << endl;
-    cout << "Item Customizatiion          Price (RM)" << endl;
+    cout << "Item Customization          Price (RM)" << endl;
     cout << "---------------------------------------" << endl;
+    outFile << "=======================================" << endl;
+    outFile << "       Farhan Matcha Receipt           " << endl;
+    outFile << "=======================================" << endl;
+    outFile << "Item Customizatiion          Price (RM)" << endl;
+    outFile << "---------------------------------------" << endl;
 
     for ( int i=0; i < x.size(); i++){
         cout << x[i].drinkName << endl;
-        cout << setw(5) << "- Intensity :" << x[i].intensityName << endl;
-        cout << setw(5) << "- Milk :" << x[i].milkName << endl;
-        cout << setw(5) << "- Syrup :" << x[i].syrupName << endl;
-        cout << setw(5) << "- Whisk :" << x[i].whiskName << endl;
-        cout << setw(5) << "- Cup prices :" << x[i].totalPrice << endl;
+        cout << setw(5) << "- Intensity : " << x[i].intensityName << endl;
+        cout << setw(5) << "- Milk : " << x[i].milkName << endl;
+        cout << setw(5) << "- Syrup : " << x[i].syrupName << endl;
+        cout << setw(5) << "- Whisk : " << x[i].whiskName << endl;
+        cout << setw(5) << "- Cup's price : " << setw(23) <<x[i].totalPrice << endl;
         cout << "---------------------------------------" << endl;
 
         outFile << x[i].drinkName << endl;
-        outFile << setw(5) << "- Intensity :" << x[i].intensityName << endl;
-        outFile << setw(5) << "- Milk :" << x[i].milkName << endl;
-        outFile << setw(5) << "- Syrup :" << x[i].syrupName << endl;
-        outFile << setw(5) << "- Whisk :" << x[i].whiskName << endl;
-        outFile << setw(5) << "- Cup prices :" << x[i].totalPrice << endl;
+        outFile << setw(5) << "- Intensity : " << x[i].intensityName << endl;
+        outFile << setw(5) << "- Milk : " << x[i].milkName << endl;
+        outFile << setw(5) << "- Syrup : " << x[i].syrupName << endl;
+        outFile << setw(5) << "- Whisk : " << x[i].whiskName << endl;
+        outFile << setw(5) << "- Cup prices : " <<  setw(23) << x[i].totalPrice << endl;
         outFile << "---------------------------------------" << endl;
     }
-    cout << "Subtotal"
+    cout << "Subtotal" << setw(31) << subtotal << endl;
+    cout << "Delivery fee" << setw(27) << "3" << endl;
+    subtotal+=3;
+    cout << "Grand Total" << setw(28) << subtotal << endl;
+    cout << "---------------------------------------" << endl;
 
+
+    outFile << "Subtotal" << setw(32) << subtotal << endl;
+    outFile << "Delivery fee" << setw(27) << "3" << endl;
+    outFile << "Grand Total" << setw(28) << subtotal << endl;
+    outFile << "---------------------------------------" << endl;
 }
 
 
