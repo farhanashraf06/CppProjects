@@ -3,14 +3,21 @@
 =======================================
 Item Customizatiion          Price (RM)
 ---------------------------------------
-Matcha Latte
+Strawberry Matcha
 - Intensity : Normal
-- Milk : Dairy Milk
+- Milk : Oat Milk
 - Syrup : No
 - Whisk : Cold Whisk
-- Cup prices :                       8
+- Cup prices :                      12
 ---------------------------------------
-Subtotal                              11
+Strawberry Matcha
+- Intensity : High
+- Milk : Dairy Milk
+- Syrup : No
+- Whisk : Hot Whisk
+- Cup prices :                    10.5
+---------------------------------------
+Subtotal                            22.5
 Delivery fee                          3
-Grand Total                          11
+Grand Total                        25.5
 ---------------------------------------

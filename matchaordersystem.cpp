@@ -41,16 +41,29 @@ double calcGrandTotal (vector <order> &x);
 
 
 int main (){
+
     vector<order> urOrder;
-    int choices;
+    char choice;
+    string name;
+    string address;
+    do{
     cout << " -------------------------------------------------------- " << endl;
     cout << " ----- Welcome to Farhan's Matcha Ordering System ! ----- " << endl;
     cout << " -------------------------------------------------------- " << endl;
     cout << " Our Menu : " << endl;
     displayMenu ();
+    cout << endl;
+    inputValidationString(name , "Enter your name : ");
+    cout << endl;
+    inputValidationString(address , "Enter your address : ");
+    cout << endl;
     chooseDrink(urOrder);
-    inputValidationString(temp.Address, "Enter your address : ");
     dispOrderSummary(urOrder);
+    cout << endl << "Do you wish to enter another order?(Y = yes / N = No) : ";
+    cin >> choice;
+    choice = toupper(choice);
+    } while(choice == 'Y');
+    cout << "Thank you for ordering !" << endl;
     return 0;
 }
 
