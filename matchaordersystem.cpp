@@ -137,6 +137,12 @@ void syrup (order &x){
     if (x.syrup == 1){
         x.totalPrice += 0.50;
     }
+    if (x.milkChoice == 1){
+        x.syrupName = "Yes";
+    }
+    else {
+        x.syrupName = "No";
+    }
 }
 
 void milk (order &x){
@@ -197,6 +203,7 @@ double calcGrandTotal (vector <order> &x){
 
 void dispOrderSummary (vector <order> &x){
     ofstream outFile;
+    double subtotal = calcGrandTotal (x);
     outFile.open("Farhan's Matcha Receipt.txt");
     
     cout << "=======================================" << endl;
@@ -207,10 +214,22 @@ void dispOrderSummary (vector <order> &x){
 
     for ( int i=0; i < x.size(); i++){
         cout << x[i].drinkName << endl;
-        cout << setw(5) << "- Intensity :" << x[i].intensity << endl;
-    }
+        cout << setw(5) << "- Intensity :" << x[i].intensityName << endl;
+        cout << setw(5) << "- Milk :" << x[i].milkName << endl;
+        cout << setw(5) << "- Syrup :" << x[i].syrupName << endl;
+        cout << setw(5) << "- Whisk :" << x[i].whiskName << endl;
+        cout << setw(5) << "- Cup prices :" << x[i].totalPrice << endl;
+        cout << "---------------------------------------" << endl;
 
-    cout << "---------------------------------------" << endl;
+        outFile << x[i].drinkName << endl;
+        outFile << setw(5) << "- Intensity :" << x[i].intensityName << endl;
+        outFile << setw(5) << "- Milk :" << x[i].milkName << endl;
+        outFile << setw(5) << "- Syrup :" << x[i].syrupName << endl;
+        outFile << setw(5) << "- Whisk :" << x[i].whiskName << endl;
+        outFile << setw(5) << "- Cup prices :" << x[i].totalPrice << endl;
+        outFile << "---------------------------------------" << endl;
+    }
+    cout << "Subtotal"
 
 }
 
