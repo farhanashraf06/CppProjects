@@ -282,6 +282,8 @@ void dispOrderSummary (vector <order> &x){
     cout << "---------------------------------------" << endl;
     outFile << "Grand Total" << setw(28) << subtotal << endl;
     outFile << "---------------------------------------" << endl;
+
+    outFile.close();
 }
 
 
