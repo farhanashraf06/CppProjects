@@ -20,10 +20,10 @@ struct order{
 };
 
 const int SIZE = 3;
-const vector<string> drinks {
+const vector<string> drinks { // menu
     "Matcha Latte", "Strawberry Matcha" , "Blueberry Matcha"
 };
-const vector<double> price {
+const vector<double> price { // price of each drinks
     8.00 , 9.50 , 9.5
 };
 
@@ -47,22 +47,23 @@ int main (){
     string name;
     string address;
     do{
-    cout << " -------------------------------------------------------- " << endl;
-    cout << " ----- Welcome to Farhan's Matcha Ordering System ! ----- " << endl;
-    cout << " -------------------------------------------------------- " << endl;
-    cout << " Our Menu : " << endl;
-    displayMenu ();
-    cout << endl;
-    inputValidationString(name , "Enter your name : ");
-    cout << endl;
-    inputValidationString(address , "Enter your address : ");
-    cout << endl;
-    chooseDrink(urOrder);
-    dispOrderSummary(urOrder);
-    cout << endl << "Do you wish to enter another order?(Y = yes / N = No) : ";
-    cin >> choice;
-    choice = toupper(choice);
+        cout << " -------------------------------------------------------- " << endl;
+        cout << " ----- Welcome to Farhan's Matcha Ordering System ! ----- " << endl;
+        cout << " -------------------------------------------------------- " << endl;
+        cout << " Our Menu : " << endl;
+        displayMenu ();
+        cout << endl;
+        inputValidationString(name , "Enter your name : ");
+        cout << endl;
+        inputValidationString(address , "Enter your address : ");
+        cout << endl;
+        chooseDrink(urOrder);
+        dispOrderSummary(urOrder);
+        cout << endl << "Do you wish to enter another order?(Y = yes / N = No) : ";
+        cin >> choice;
+        choice = toupper(choice);
     } while(choice == 'Y');
+
     cout << "Thank you for ordering !" << endl;
     return 0;
 }
@@ -103,7 +104,7 @@ void chooseDrink(vector<order> &urOrder){
             cout << endl;
             urOrder.push_back(temp);
         }
-        cout << endl;
+            cout << endl;
     }
 }
 
@@ -118,8 +119,10 @@ void inputValidation(T &x , string y){
             cout << "Invalid input ! Try again : ";
             continue;  
         }
-     break;}
+     break;
+    }
  }
+
  void inputValidationString(string &x , string y){
     cout << y;
     while (true){
@@ -130,7 +133,8 @@ void inputValidation(T &x , string y){
             cout << "Invalid input ! Try again : ";
             continue;  
         }
-     break;}
+     break;
+    }
  }
 
 void intensity (order &x){
