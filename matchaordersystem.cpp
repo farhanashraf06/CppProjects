@@ -68,13 +68,13 @@ int main (){
     return 0;
 }
 
-void displayMenu (){
+void displayMenu (){ // function to display menu
     for (int i=0; i < SIZE ; i++){
         cout << i+1 << ". "<< drinks[i] << " - RM " << price[i] << endl;
     }
 }
 
-void chooseDrink(vector<order> &urOrder){
+void chooseDrink(vector<order> &urOrder){ // function to choose drinks
     int drinkTypes;
     inputValidation(drinkTypes, "How many different drinks would you like to order (max 3)? : ");
 
@@ -109,7 +109,7 @@ void chooseDrink(vector<order> &urOrder){
 }
 
 template <typename T>
-void inputValidation(T &x , string y){
+void inputValidation(T &x , string y){ // function for input validation using template
     cout << y;
     while (true){
             cin >> x;
@@ -123,7 +123,7 @@ void inputValidation(T &x , string y){
     }
  }
 
- void inputValidationString(string &x , string y){
+ void inputValidationString(string &x , string y){ // function for input validation special for string to use getline
     cout << y;
     while (true){
             getline ( cin >> ws , x);
@@ -137,7 +137,7 @@ void inputValidation(T &x , string y){
     }
  }
 
-void intensity (order &x){
+void intensity (order &x){ // function for intensity customisation
     while (true){
             inputValidation (x.intensity , "Intensity (N = Normal / H = High) : ");
             x.intensity = toupper (x.intensity);
@@ -161,7 +161,7 @@ void intensity (order &x){
     }
 }
 
-void syrup (order &x){
+void syrup (order &x){ // function for syrup customisation
     while (true){
             inputValidation(x.syrup, "Add syrup? (Y = Yes, N = No): ");
             x.syrup = toupper (x.syrup);
@@ -185,7 +185,7 @@ void syrup (order &x){
     }
 }
 
-void milk (order &x){
+void milk (order &x){ // function for milk customisation
     while (true){
             inputValidation(x.milkChoice, "Milk ( O = Oatmilk / D = Dairy ): ");
             x.milkChoice = toupper (x.milkChoice);
@@ -209,7 +209,7 @@ void milk (order &x){
     }
 }
 
-void whisk (order &x){
+void whisk (order &x){ // function for whisking customisation
     while (true){
             inputValidation(x.whisk, "Whisk Method? (A = Hot Whisk , B = Cold Whisk): ");
             x.whisk = toupper (x.whisk);
@@ -233,7 +233,7 @@ void whisk (order &x){
     }
 }
 
-double calcGrandTotal (vector <order> &x){
+double calcGrandTotal (vector <order> &x){ // function to calculate total without delivery
     double grandTotal=0;
     for ( int i=0 ; i < x.size(); i++){
         grandTotal += x[i].totalPrice;
@@ -241,7 +241,7 @@ double calcGrandTotal (vector <order> &x){
     return grandTotal;
 }
 
-void dispOrderSummary (vector <order> &x){
+void dispOrderSummary (vector <order> &x){ // function to display summary onto a .txt file
     ofstream outFile;
     double subtotal = calcGrandTotal (x);
     outFile.open("Farhan's Matcha Receipt.txt");
